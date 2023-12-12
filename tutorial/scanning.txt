@@ -1,0 +1,41 @@
+---> [NORMAL UDP AMPLIFICATIONS]
+
+This will scan and filter automatically
+
+python3 ampGod.py --scan dns
+python3 ampGod.py --scan ntp
+python3 ampGod.py --scan cldap
+python3 ampGod.py --scan ard
+python3 ampGod.py --scan wsd
+python3 ampGod.py --scan dvr
+
+
+
+---> [TCP BGP AMPLIFICATION]
+
+zmap -p 179 -o temp
+sed 's/.*/& 179/' temp > bgp.txt
+rm -rf temp
+
+
+
+---> [TCP MIDDLEBOX AMPLIFICATION]
+
+This needs a spoof server and another server
+
+Replace <other-server-IP> with your other server IP and run this command on your spoof server
+
+zmap -p 179 -o /dev/null -S <other-server-IP>
+
+At same time, run this command on your other server
+
+tshark -f 'ip[2:2] > 100 && src port 179 && tcp' > log.txt
+
+Once the zmap is done you do CTRL + C to close tshark
+
+Install Java if you already don't have installed
+
+apt install default-jre -y
+
+java -jar IPFilter.jar log.txt middlebox.txt
+rm -rf log.txt
